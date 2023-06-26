@@ -7,11 +7,11 @@ const ENDPOINT = {
 };
 
 const SystemService = {
-  sendUrlRequest: (url) => {
+  sendUrlRequest: (data) => {
     return axios({
       method: "post",
       url: ENDPOINT.PROCESS_URL,
-      data: { url },
+      data,
     });
   },
 };
@@ -47,13 +47,15 @@ const YoutubeEmbed = ({ embedId, resetData }) => (
 
 const App = () => {
   const [url, setUrl] = useState("");
+  const [searchTxt, setSearchTxt] = useState("");
   const [embedId, setEmbedId] = useState("");
 
   const handleSubmit = () => {
     if (url) {
-      let a = url.split("?v=");
-      setEmbedId(a[1]);
-      SystemService.sendUrlRequest(url)
+      let videoId = url.split("?v=")[1];
+      setEmbedId(videoId);
+      let reqData = { url, searchTxt, video_id: videoId };
+      SystemService.sendUrlRequest(reqData)
         .then((res) => {
           console.log(res);
         })
@@ -68,11 +70,29 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>YOUTUBE TARGET URL</h2>
-      <input value={url} onChange={({ target: { value } }) => setUrl(value)} />
+      <h2>Search text in youtube to find video</h2>
+      <input
+        value={searchTxt}
+        style={{ height: "20px", width: "230px" }}
+        placeholder="Search text in youtube to find video"
+        onChange={({ target: { value } }) => setSearchTxt(value)}
+      />
+
+      <h2>Youtube video link</h2>
+      <input
+        value={url}
+        style={{ height: "20px" }}
+        onChange={({ target: { value } }) => setUrl(value)}
+      />
+
       <button
         onClick={handleSubmit}
-        style={{ background: "#29f", color: "white", borderColor: "#29f" }}
+        style={{
+          background: "#29f",
+          color: "white",
+          borderColor: "#29f",
+          height: "26px",
+        }}
       >
         Submit
       </button>
