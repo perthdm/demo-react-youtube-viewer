@@ -54,7 +54,11 @@ const App = () => {
     if (url) {
       let videoId = url.split("?v=")[1];
       setEmbedId(videoId);
-      let reqData = { url, searchTxt, video_id: videoId };
+      let reqData = {
+        video_url: url,
+        search_txt: searchTxt,
+        video_id: videoId,
+      };
       SystemService.sendUrlRequest(reqData)
         .then((res) => {
           console.log(res);
