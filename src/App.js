@@ -49,6 +49,7 @@ const App = () => {
   const [url, setUrl] = useState("");
   const [searchTxt, setSearchTxt] = useState("");
   const [embedId, setEmbedId] = useState("");
+  const [viewExpect, setViewExpect] = useState();
 
   const handleSubmit = () => {
     if (url) {
@@ -58,6 +59,7 @@ const App = () => {
         video_url: url,
         search_txt: searchTxt,
         video_id: videoId,
+        view_expect: viewExpect,
       };
       SystemService.sendUrlRequest(reqData)
         .then((res) => {
@@ -74,7 +76,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2>Search text in youtube to find video</h2>
+      <h2>
+        Search text in youtube to find video{" "}
+        <span style={{ color: "red" }}>(String)</span>
+      </h2>
       <input
         value={searchTxt}
         style={{ height: "20px", width: "230px" }}
@@ -82,10 +87,23 @@ const App = () => {
         onChange={({ target: { value } }) => setSearchTxt(value)}
       />
 
-      <h2>Youtube video link</h2>
+      <h2>
+        View expect <span style={{ color: "red" }}>(Int)</span>{" "}
+      </h2>
+      <input
+        value={viewExpect}
+        placeholder="Input view expect"
+        style={{ height: "20px" }}
+        onChange={({ target: { value } }) => setViewExpect(value)}
+      />
+
+      <h2>
+        Youtube video link <span style={{ color: "red" }}>(String)</span>
+      </h2>
       <input
         value={url}
         style={{ height: "20px" }}
+        placeholder="https://www.youtube.com/watch?v=xxxxxxxxx"
         onChange={({ target: { value } }) => setUrl(value)}
       />
 
