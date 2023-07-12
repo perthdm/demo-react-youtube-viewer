@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const ENDPOINT = {
-  PROCESS_URL: "http://localhost:3001",
+  PROCESS_URL: "http://localhost:3001/confirm-order",
 };
 
 const SystemService = {
